@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Connexion</title>
+</head>
+<body>
+    <!-- Conteneur du formulaire -->
+    <div class="form-container">s
+        <h1>Connexion</h1>
+        
+        <!-- Affichage des messages flash -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="flash {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        
+        <!-- Formulaire de connexion -->
+        <form method="POST" action="{{ url_for('login') }}">
+            <label for="email">Email :</label>
+            <input type="email" id="email" name="email" placeholder="Entrez votre email" required>
+            
+            <label for="password">Mot de passe :</label>
+            <input type="password" id="password" name="password" placeholder="Entrez votre mot de passe" required>
+            
+            <button type="submit">Se connecter</button>
+        </form>
+        
+        <!-- Lien pour s'inscrire -->
+        <p>Pas encore inscrit ? <a href="{{ url_for('register') }}">Inscrivez-vous ici</a>.</p>
+    </div>
+</body>
+</html>

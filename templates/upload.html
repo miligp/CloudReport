@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uploader une Photo</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="form-container">
+        <h1>Uploader une Photo</h1>
+
+        <!-- Affichage des messages Flash -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="flash-messages">
+                    {% for category, message in messages %}
+                        <li class="flash {{ category }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        <!-- Formulaire d'upload -->
+        <form method="POST" action="{{ url_for('upload') }}" enctype="multipart/form-data">
+            <label for="photo">Choisissez une photo :</label>
+            <input type="file" id="photo" name="photo" required>
+            <button type="submit">Uploader</button>
+        </form>
+
+        <!-- Informations utilisateur connecté -->
+        {% if session.get('username') %}
+            <p>Connecté en tant que : <strong class="username">@{{ session.username }}</strong></p>
+        {% endif %}
+
+        <!-- Retour à la galerie -->
+        <a href="{{ url_for('home') }}" class="btn">Retour à la galerie principale</a>
+    </div>
+</body>
+</html>
